@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MixAura | The Divine Studio Realm</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        
+        body {
+            background-color: #03070A; /* Deep cinematic black/teal */
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Advanced Floating Divine Waves */
+        .divine-waves {
+            position: fixed;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(20, 255, 150, 0.05) 0%, transparent 30%);
+            animation: wavePulse 12s infinite alternate ease-in-out;
+            z-index: -1;
+            filter: blur(40px);
+        }
+
+        @keyframes wavePulse {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+            50% { transform: translate(-2%, 3%) scale(1.05); opacity: 1; }
+            100% { transform: translate(3%, -2%) scale(1.1); opacity: 0.6; }
+        }
+
+        /* Navigation */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 25px 8%; background: rgba(3, 7, 10, 0.6);
+            backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: sticky; top: 0; z-index: 100;
+        }
+
+        .logo { font-size: 2rem; font-weight: 800; letter-spacing: 3px; display: flex; align-items: center; gap: 8px;}
+        .logo span { color: #00e5ff; font-weight: 300; letter-spacing: 1px;}
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: #a0aab2; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s; text-transform: uppercase;}
+        .nav-links a:hover { color: #00e5ff; text-shadow: 0 0 10px rgba(0,229,255,0.5); }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center; padding: 0 20px;
+        }
+
+        .hero h1 { font-size: 4.5rem; letter-spacing: 6px; margin-bottom: 20px; font-weight: 800; text-transform: uppercase; line-height: 1.1;}
+        .hero h1 span { 
+            background: linear-gradient(90deg, #00e5ff, #14ff96);
+            -webkit-background-clip: text; color: transparent; 
+        }
+        .hero p { font-size: 1.3rem; max-width: 800px; color: #8a9ba8; font-weight: 300; margin-bottom: 40px; }
+        
+        .cta-btn {
+            padding: 15px 40px; background: transparent; border: 1px solid #00e5ff;
+            color: #00e5ff; font-size: 1.1rem; letter-spacing: 2px; border-radius: 30px;
+            cursor: pointer; transition: 0.4s; text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+        }
+        .cta-btn:hover {
+            background: #00e5ff; color: #03070A;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.4); transform: translateY(-3px);
+        }
+
+        /* Glassmorphism Grid Section */
+        .section-title { text-align: center; font-size: 2.5rem; margin: 60px 0 30px; font-weight: 600; letter-spacing: 2px;}
+        
+        .grid-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px; padding: 0 8% 80px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px; padding: 40px 30px; cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(20px);
+            position: relative; overflow: hidden;
+        }
+
+        .card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .card:hover::before { left: 100%; }
+        .card:hover {
+            transform: translateY(-12px);
+            border-color: rgba(0, 229, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 229, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .card-icon { font-size: 2.5rem; margin-bottom: 20px; }
+        .card h3 { color: #ffffff; margin-bottom: 15px; font-size: 1.6rem; font-weight: 600; letter-spacing: 1px;}
+        .card p { color: #8a9ba8; font-size: 1rem; margin-bottom: 20px;}
+        
+        .card-tag { 
+            display: inline-block; padding: 5px 12px; font-size: 0.75rem; 
+            background: rgba(0, 229, 255, 0.1); color: #00e5ff; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="divine-waves"></div>
+
+    <header>
+        <div class="logo">M A <span>| MIXAURA</span></div>
+        <div class="nav-links">
+            <a href="#">Sound Library</a>
+            <a href="#">Beats</a>
+            <a href="#">Courses</a>
+            <a href="#">Membership</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>The Divine <span>Sound Realm</span></h1>
+        <p>Mixaura is all about connecting you with the divine and emotional sounds of music. From high-energy drops to soulful, looping melodies, let's create music that touches the heart.</p>
+        <button class="cta-btn">Enter Studio</button>
+    </section>
+
+    <h2 class="section-title">Explore The Vault</h2>
+    <section class="grid-container">
+        
+        <div class="card">
+            <div class="card-icon">🎵</div>
+            <h3>Premium Beats</h3>
+            <p>Exclusive instrumentals spanning Rap, R&B, Pop, and Lo-Fi. License top-tier sounds to elevate your next project.</p>
+            <span class="card-tag">Purchase Licenses</span>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🎛️</div>
+            <h3>Project Files</h3>
+            <p>Dive deep into professional Ableton Live and FL Studio project templates. See exactly how the magic is routed and mixed.</p>
+            <span class="card-tag">Download Access</span>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📚</div>
+            <h3>Mixing & Mastering</h3>
+            <p>Industry-level courses and live mentorship. Learn to shape your frequencies, control dynamics, and craft the perfect sonic aura.</p>
+            <span class="card-tag">Start Learning</span>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">✨</div>
+            <h3>Tips & Tricks Blog</h3>
+            <p>From essential vocal chain setups to creative arrangement hacks, discover secrets to refine your workflow.</p>
+            <span class="card-tag">Read Articles</span>
+        </div>
+
+    </section>
+</body>
+</html>
