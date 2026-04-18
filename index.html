@@ -166,172 +166,158 @@
         </div>
 
     </section>
-  <style>
-  /* १. फुल स्क्रिन डाइनामिक मिक्स-औरा (MixAura) भिजुअल्स */
-  .mixaura-fluid-bg {
+ <style>
+  /* प्रोफेसनल 'Glassmorphism' म्युजिक प्लेयर (Enter Studio सँग म्याच हुने) */
+  .mixaura-glass-player {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -2;
-    background: #0f0c29; /* डार्क ब्याकग्राउन्ड */
-    overflow: hidden;
+    bottom: 25px;
+    right: 25px;
+    background: rgba(255, 255, 255, 0.05); /* एकदमै पारदर्शी */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 18px;
+    width: 280px;
+    z-index: 9999;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   }
 
-  /* स्क्रिनभरि घुम्ने स्मुथ कलर फ्लो (Aura) */
-  .aura {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.6;
-    animation: floatAura 12s infinite alternate ease-in-out;
-  }
-
-  .aura-purple {
-    width: 50vw; height: 50vw;
-    background: #8e2de2;
-    top: -10%; left: -10%;
-  }
-
-  .aura-blue {
-    width: 40vw; height: 40vw;
-    background: #4a00e0;
-    bottom: -10%; right: -10%;
-    animation-delay: -5s;
-  }
-
-  .aura-dark {
-    width: 60vw; height: 60vw;
-    background: #1e1432;
-    top: 30%; left: 20%;
-    animation-duration: 18s;
-  }
-
-  @keyframes floatAura {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(8%, 8%) scale(1.2); }
-  }
-
-  /* २. प्रोफेसनल र क्लिन म्युजिक प्लेयर */
-  .premium-player {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: rgba(20, 15, 35, 0.75);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(142, 45, 226, 0.3);
-    border-radius: 12px;
-    padding: 15px;
-    width: 260px;
-    z-index: 1000;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    font-family: Arial, sans-serif;
-  }
-
-  .player-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-
-  .player-title {
-    color: #fff;
+  .player-header {
     font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
 
-  .btn-play {
-    background: #8e2de2;
-    color: #fff;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .btn-play:hover {
-    background: #4a00e0;
-  }
-
-  .song-select {
+  /* ड्रपडाउन मेनु */
+  .song-selector {
     width: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    color: #ddd;
-    border: 1px solid rgba(142, 45, 226, 0.4);
-    padding: 8px;
-    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    border: 1px solid rgba(142, 45, 226, 0.5);
+    padding: 8px 10px;
+    border-radius: 8px;
     outline: none;
     font-size: 13px;
+    margin-bottom: 15px;
     cursor: pointer;
   }
-
-  .song-select option {
-    background: #150f24;
+  
+  .song-selector option {
+    background: #1e1432; /* डार्क पर्पल */
     color: #fff;
+  }
+
+  /* कन्ट्रोल बटनहरू */
+  .controls-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .ctrl-btn {
+    flex: 1;
+    background: linear-gradient(135deg, rgba(142, 45, 226, 0.8), rgba(74, 0, 224, 0.8));
+    color: white;
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    transition: all 0.3s ease;
+  }
+
+  .ctrl-btn:hover {
+    background: linear-gradient(135deg, rgba(142, 45, 226, 1), rgba(74, 0, 224, 1));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(142, 45, 226, 0.5);
   }
 </style>
 
-<div class="mixaura-fluid-bg">
-  <div class="aura aura-purple"></div>
-  <div class="aura aura-blue"></div>
-  <div class="aura aura-dark"></div>
-</div>
+<div class="mixaura-glass-player">
+  <div class="player-header">🎵 MixAura Soundscapes</div>
+  
+  <select id="song-dropdown" class="song-selector" onchange="selectSongFromMenu()">
+    </select>
 
-<div class="premium-player">
-  <div class="player-top">
-    <span class="player-title">🎵 MixAura Audio</span>
-    <button id="main-play-btn" class="btn-play" onclick="handleMusic()">Play ▶</button>
+  <div class="controls-wrapper">
+    <button id="play-btn" class="ctrl-btn" onclick="togglePlayPause()">Play ▶</button>
+    <button class="ctrl-btn" onclick="playNextSong()">Next ⏭</button>
   </div>
-  <select id="main-song-select" class="song-select" onchange="changeSong()">
-    <option value="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3">1. Divine Default Waves</option>
-    <option value="https://cdn.pixabay.com/download/audio/2021/11/24/audio_985552ebc5.mp3">2. Deep Om Mantra</option>
-    <option value="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b8175b9f.mp3">3. Chill Lo-Fi Vibe</option>
-    <option value="https://cdn.pixabay.com/download/audio/2022/04/27/audio_67b45bbbf4.mp3">4. Cinematic Ambience</option>
-  </select>
-
-  <audio id="main-audio" loop preload="auto">
-    <source id="main-audio-src" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
-  </audio>
 </div>
 
 <script>
-  const myAudio = document.getElementById('main-audio');
-  const myPlayBtn = document.getElementById('main-play-btn');
-  const mySource = document.getElementById('main-audio-src');
-  const mySelect = document.getElementById('main-song-select');
+  // १००% बज्ने अडियो लिङ्कहरू (डिफल्ट, मन्त्र, लो-फाई, पप)
+  const playlist = [
+    { name: "1. Divine Vibes (Default)", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+    { name: "2. Peaceful Om Mantra", url: "https://ia800300.us.archive.org/33/items/OmMantra_201702/Om%20Mantra.mp3" },
+    { name: "3. Chill Lo-Fi Beats", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+    { name: "4. Global Pop / Groove", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+    { name: "5. Cinematic Ambient", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" }
+  ];
 
-  function handleMusic() {
-    if (myAudio.paused) {
-      // प्ले गर्दा एरर नआओस् भनेर Promise ह्यान्डल गरिएको
-      let playPromise = myAudio.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          myPlayBtn.innerText = "Pause ⏸";
-        }).catch(error => {
-          console.log("Play error:", error);
-          myPlayBtn.innerText = "Click Again";
-        });
-      }
+  let currentTrackIndex = 0;
+  const audioObj = new Audio();
+  audioObj.loop = true;
+
+  const dropdown = document.getElementById("song-dropdown");
+  const playBtn = document.getElementById("play-btn");
+
+  // ड्रपडाउनमा लिस्ट हाल्ने
+  playlist.forEach((track, index) => {
+    let option = document.createElement("option");
+    option.value = index;
+    option.text = track.name;
+    dropdown.appendChild(option);
+  });
+
+  // गाना लोड गर्ने फङ्सन
+  function loadAndPlayTrack(index) {
+    audioObj.src = playlist[index].url;
+    dropdown.value = index;
+    
+    // प्ले गर्न खोज्ने (ब्राउजरले ब्लक गरेमा कन्सोलमा म्यासेज जान्छ)
+    audioObj.play().then(() => {
+      playBtn.innerText = "Pause ⏸";
+    }).catch((err) => {
+      console.log("Autoplay blocked by browser. User needs to click play.");
+      playBtn.innerText = "Play ▶";
+    });
+  }
+
+  // Play र Pause कन्ट्रोल
+  function togglePlayPause() {
+    if (audioObj.paused) {
+      audioObj.play();
+      playBtn.innerText = "Pause ⏸";
     } else {
-      myAudio.pause();
-      myPlayBtn.innerText = "Play ▶";
+      audioObj.pause();
+      playBtn.innerText = "Play ▶";
     }
   }
 
-  function changeSong() {
-    const wasPlaying = !myAudio.paused;
-    mySource.src = mySelect.value;
-    myAudio.load();
-    if (wasPlaying) {
-      myAudio.play().catch(e => console.log(e));
-    }
+  // Next गाना बजाउने कन्ट्रोल
+  function playNextSong() {
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    loadAndPlayTrack(currentTrackIndex);
   }
+
+  // ड्रपडाउनबाट छानेर बजाउने
+  function selectSongFromMenu() {
+    currentTrackIndex = parseInt(dropdown.value);
+    loadAndPlayTrack(currentTrackIndex);
+  }
+
+  // वेबसाइट खुल्ने बित्तिकै पहिलो गाना अटो-प्ले गर्न खोज्ने
+  window.addEventListener('load', () => {
+    loadAndPlayTrack(0);
+  });
 </script>
   </body>
 </html>
