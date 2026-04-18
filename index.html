@@ -167,7 +167,7 @@
 
     </section>
     <style>
-  /* १. तिम्रो ओरिजिनल डिफल्ट Waves (कुनै चेन्ज छैन) */
+  /* Cinematic & Smooth Waves */
   .ocean {
     height: 120px;
     width: 100%;
@@ -206,45 +206,60 @@
     50% { transform: translate3d(0, 5px, 0); }
   }
 
-  /* २. एकदमै सिम्पल र ट्रान्सपरेन्ट प्लेयर */
-  .mixaura-simple-player {
+  /* Professional & Clean Music Player (Bottom Right) */
+  .mixaura-player {
     position: fixed;
     bottom: 25px;
     right: 25px;
-    background: rgba(255, 255, 255, 0.05); /* ग्लास इफेक्ट */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 12px 20px;
+    background: rgba(15, 15, 20, 0.7);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px;
     border-radius: 12px;
     z-index: 1000;
     display: flex;
-    align-items: center;
-    gap: 15px;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    width: 260px;
     font-family: Arial, sans-serif;
   }
 
-  .simple-player-title {
-    color: #fff;
+  .player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #e0e0e0;
     font-size: 14px;
     font-weight: bold;
     letter-spacing: 1px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
 
-  .simple-play-btn {
-    background: rgba(142, 45, 226, 0.5);
+  .play-pause-btn {
+    background: #8e2de2;
     color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: none;
     border-radius: 6px;
-    padding: 6px 16px;
+    padding: 8px 16px;
     cursor: pointer;
     font-weight: bold;
-    transition: 0.3s;
+    transition: background 0.3s ease;
   }
 
-  .simple-play-btn:hover {
-    background: rgba(142, 45, 226, 0.8);
+  .play-pause-btn:hover {
+    background: #4a00e0;
+  }
+
+  .track-selector {
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: 1px solid rgba(142, 45, 226, 0.5);
+    padding: 8px;
+    border-radius: 6px;
+    outline: none;
+    width: 100%;
+    font-size: 13px;
+    cursor: pointer;
   }
 </style>
 
@@ -253,31 +268,51 @@
   <div class="wave"></div>
 </div>
 
-<div class="mixaura-simple-player">
-  <div class="simple-player-title">🎵 MixAura Web Sound</div>
-  <button id="simple-play-btn" class="simple-play-btn" onclick="toggleSimplePlay()">Play ▶</button>
+<div class="mixaura-player">
+  <div class="player-header">
+    <span>🎵 MixAura Player</span>
+    <button id="play-pause-btn" class="play-pause-btn" onclick="togglePlay()">Play ▶</button>
+  </div>
+  <select id="track-selector" class="track-selector" onchange="changeTrack()">
+    <option value="https://archive.org/download/ambient_bgm/ambient_bgm.mp3">1. Divine MixAura Waves (Default)</option>
+    <option value="https://archive.org/download/OmMantra_201702/Om%20Mantra.mp3">2. Peaceful Om Mantra</option>
+    <option value="https://archive.org/download/lofi-study/lofi-study.mp3">3. Cinematic Lo-Fi Flow</option>
+    <option value="https://archive.org/download/acoustic-guitar-background-music/Acoustic%20Guitar.mp3">4. Acoustic / Folk Vibe</option>
+    <option value="https://archive.org/download/EDM_Background_Music/EDM.mp3">5. Upbeat Electronic</option>
+  </select>
   
-  <audio id="simple-audio" loop crossorigin="anonymous">
-    <source src="https://archive.org/download/ambient_bgm/ambient_bgm.mp3" type="audio/mpeg">
+  <audio id="bg-music" loop>
+    <source id="audio-source" src="https://archive.org/download/ambient_bgm/ambient_bgm.mp3" type="audio/mpeg">
   </audio>
 </div>
 
 <script>
-  const myAudio = document.getElementById('simple-audio');
-  const myBtn = document.getElementById('simple-play-btn');
+  const audio = document.getElementById('bg-music');
+  const btn = document.getElementById('play-pause-btn');
+  const source = document.getElementById('audio-source');
+  const selector = document.getElementById('track-selector');
 
-  function toggleSimplePlay() {
-    if (myAudio.paused) {
-      myAudio.play().then(() => {
-        myBtn.innerText = "Pause ⏸";
-      }).catch((err) => {
-        console.log("Play failed:", err);
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play().then(() => {
+        btn.innerText = "Pause ⏸";
+      }).catch((error) => {
+        console.log("Audio play failed:", error);
       });
     } else {
-      myAudio.pause();
-      myBtn.innerText = "Play ▶";
+      audio.pause();
+      btn.innerText = "Play ▶";
+    }
+  }
+
+  function changeTrack() {
+    const isPlaying = !audio.paused;
+    source.src = selector.value;
+    audio.load();
+    if (isPlaying) {
+      audio.play().catch(e => console.log(e));
     }
   }
 </script>
-   </body>
+  </body>
 </html>
