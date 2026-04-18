@@ -167,92 +167,94 @@
 
     </section>
     <style>
-  /* टेक्स्टलाई चम्काउने (Glowing Text) इफेक्ट */
-  h1, h2, h3, .glowing-text {
-    text-shadow: 0 0 10px rgba(142, 45, 226, 0.7), 0 0 20px rgba(142, 45, 226, 0.5);
-    animation: textGlow 3s infinite alternate;
-  }
-
-  @keyframes textGlow {
-    0% { text-shadow: 0 0 10px rgba(142, 45, 226, 0.4), 0 0 20px rgba(142, 45, 226, 0.2); }
-    100% { text-shadow: 0 0 20px rgba(142, 45, 226, 1), 0 0 30px rgba(74, 0, 224, 0.8); }
-  }
-
-  /* डाइनामिक वेभ्स (Dynamic Waves) */
-  .wave-container {
+  /* Cinematic & Smooth Waves */
+  .ocean {
+    height: 120px;
+    width: 100%;
     position: fixed;
     bottom: 0;
     left: 0;
-    width: 100%;
-    height: 150px;
-    overflow: hidden;
+    background: transparent;
     z-index: -1;
+    overflow: hidden;
   }
 
   .wave {
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg') repeat-x;
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 200%;
+    top: 0;
+    width: 6400px;
     height: 100%;
-    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 800 88.7" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C150,80 250,0 400,40 C550,80 650,0 800,40 L800,88.7 L0,88.7 Z" fill="%238e2de2" opacity="0.4"/></svg>');
-    background-size: 50% 100%;
-    animation: moveWaves 6s linear infinite;
+    animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.6;
   }
 
-  .wave:nth-child(2) {
-    bottom: 10px;
-    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 800 88.7" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C150,80 250,0 400,40 C550,80 650,0 800,40 L800,88.7 L0,88.7 Z" fill="%234a00e0" opacity="0.3"/></svg>');
-    background-size: 50% 100%;
-    animation: moveWaves 8s linear infinite reverse;
+  .wave:nth-of-type(2) {
+    top: 15px;
+    animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite, swell 7s ease -1.25s infinite;
+    opacity: 0.3;
   }
 
-  @keyframes moveWaves {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+  @keyframes wave {
+    0% { margin-left: 0; }
+    100% { margin-left: -1600px; }
   }
 
-  /* क्लिन र सानो म्युजिक प्लेयर (कुनै कुरा नढाक्ने) */
-  .music-player-box {
+  @keyframes swell {
+    0%, 100% { transform: translate3d(0, -15px, 0); }
+    50% { transform: translate3d(0, 5px, 0); }
+  }
+
+  /* Professional & Clean Music Player (Bottom Right) */
+  .mixaura-player {
     position: fixed;
-    bottom: 20px;
-    left: 20px; /* यसले प्लेयरलाई देब्रे कुनामा राख्छ */
-    background: rgba(15, 12, 41, 0.85);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(142, 45, 226, 0.5);
-    padding: 12px;
+    bottom: 25px;
+    right: 25px;
+    background: rgba(15, 15, 20, 0.7);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px;
     border-radius: 12px;
-    z-index: 100;
+    z-index: 1000;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    width: 250px;
+    gap: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    width: 260px;
+    font-family: Arial, sans-serif;
   }
 
-  .player-controls {
+  .player-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #e0e0e0;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
   }
 
   .play-pause-btn {
-    background: linear-gradient(45deg, #8e2de2, #4a00e0);
+    background: #8e2de2;
     color: white;
     border: none;
-    border-radius: 50px;
-    padding: 6px 15px;
+    border-radius: 6px;
+    padding: 8px 16px;
     cursor: pointer;
     font-weight: bold;
-    outline: none;
-    font-size: 14px;
+    transition: background 0.3s ease;
+  }
+
+  .play-pause-btn:hover {
+    background: #4a00e0;
   }
 
   .track-selector {
-    background: #24243e;
-    color: white;
-    border: 1px solid #8e2de2;
-    padding: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: 1px solid rgba(142, 45, 226, 0.5);
+    padding: 8px;
     border-radius: 6px;
     outline: none;
     width: 100%;
@@ -261,27 +263,27 @@
   }
 </style>
 
-<div class="music-player-box">
-  <select id="track-selector" class="track-selector" onchange="changeTrack()">
-    <option value="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3">1. Divine MixAura Waves</option>
-    <option value="https://cdn.pixabay.com/download/audio/2021/11/24/audio_985552ebc5.mp3">2. Peaceful Om / Mantra</option>
-    <option value="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b8175b9f.mp3">3. Chill Lo-Fi Beat</option>
-    <option value="https://cdn.pixabay.com/download/audio/2022/10/25/audio_2492f15328.mp3">4. Pop / Hip-Hop Vibe</option>
-    <option value="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3">5. Folk / Acoustic Melody</option>
-    <option value="https://cdn.pixabay.com/download/audio/2022/04/27/audio_67b45bbbf4.mp3">6. Cinematic / Classical</option>
-  </select>
-  <div class="player-controls">
-    <span style="color: #ccc; font-size: 12px; font-weight: bold;">MixAura Player</span>
-    <button id="play-pause-btn" class="play-pause-btn" onclick="togglePlay()">Play ▶</button>
-  </div>
-  <audio id="bg-music" loop>
-    <source id="audio-source" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
-  </audio>
+<div class="ocean">
+  <div class="wave"></div>
+  <div class="wave"></div>
 </div>
 
-<div class="wave-container">
-  <div class="wave"></div>
-  <div class="wave"></div>
+<div class="mixaura-player">
+  <div class="player-header">
+    <span>🎵 MixAura Player</span>
+    <button id="play-pause-btn" class="play-pause-btn" onclick="togglePlay()">Play ▶</button>
+  </div>
+  <select id="track-selector" class="track-selector" onchange="changeTrack()">
+    <option value="https://archive.org/download/ambient_bgm/ambient_bgm.mp3">1. Divine MixAura Waves (Default)</option>
+    <option value="https://archive.org/download/OmMantra_201702/Om%20Mantra.mp3">2. Peaceful Om Mantra</option>
+    <option value="https://archive.org/download/lofi-study/lofi-study.mp3">3. Cinematic Lo-Fi Flow</option>
+    <option value="https://archive.org/download/acoustic-guitar-background-music/Acoustic%20Guitar.mp3">4. Acoustic / Folk Vibe</option>
+    <option value="https://archive.org/download/EDM_Background_Music/EDM.mp3">5. Upbeat Electronic</option>
+  </select>
+  
+  <audio id="bg-music" loop>
+    <source id="audio-source" src="https://archive.org/download/ambient_bgm/ambient_bgm.mp3" type="audio/mpeg">
+  </audio>
 </div>
 
 <script>
@@ -292,8 +294,11 @@
 
   function togglePlay() {
     if (audio.paused) {
-      audio.play();
-      btn.innerText = "Pause ⏸";
+      audio.play().then(() => {
+        btn.innerText = "Pause ⏸";
+      }).catch((error) => {
+        console.log("Audio play failed:", error);
+      });
     } else {
       audio.pause();
       btn.innerText = "Play ▶";
@@ -301,11 +306,11 @@
   }
 
   function changeTrack() {
-    const isPlaying = !audio.paused; /* म्युजिक बजिरहेको छ कि छैन चेक गर्ने */
+    const isPlaying = !audio.paused;
     source.src = selector.value;
     audio.load();
     if (isPlaying) {
-      audio.play(); /* यदि पहिले नै बजिरहेको थियो भने नयाँ गाना अटो-प्ले हुन्छ */
+      audio.play().catch(e => console.log(e));
     }
   }
 </script>
