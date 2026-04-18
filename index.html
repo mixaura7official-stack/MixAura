@@ -166,157 +166,158 @@
         </div>
 
     </section>
-   <style>
-  /* MixAura Player - सफा र प्रोफेसनल (यसले ब्याकग्राउन्डलाई छुँदैन) */
-  .mixaura-glass-player {
+  <style>
+  /* Cinematic & Smooth Waves */
+  .ocean {
+    height: 120px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: transparent;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  .wave {
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg') repeat-x;
+    position: absolute;
+    top: 0;
+    width: 6400px;
+    height: 100%;
+    animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.6;
+  }
+
+  .wave:nth-of-type(2) {
+    top: 15px;
+    animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite, swell 7s ease -1.25s infinite;
+    opacity: 0.3;
+  }
+
+  @keyframes wave {
+    0% { margin-left: 0; }
+    100% { margin-left: -1600px; }
+  }
+
+  @keyframes swell {
+    0%, 100% { transform: translate3d(0, -15px, 0); }
+    50% { transform: translate3d(0, 5px, 0); }
+  }
+
+  /* Professional & Clean Music Player (Bottom Right) */
+  .mixaura-player {
     position: fixed;
     bottom: 25px;
     right: 25px;
-    background: rgba(15, 10, 25, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(142, 45, 226, 0.3);
-    border-radius: 16px;
-    padding: 18px;
-    width: 280px;
-    z-index: 9999;
-    color: #ffffff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  }
-
-  .player-title {
-    font-size: 15px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    text-align: center;
-    letter-spacing: 1px;
-    color: #e0e0e0;
-  }
-
-  .song-dropdown {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: 1px solid rgba(142, 45, 226, 0.5);
-    padding: 10px;
-    border-radius: 8px;
-    outline: none;
-    font-size: 13px;
-    margin-bottom: 15px;
-    cursor: pointer;
-  }
-  
-  .song-dropdown option {
-    background: #1a1025;
-    color: #fff;
-  }
-
-  .player-controls {
+    background: rgba(15, 15, 20, 0.7);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+    z-index: 1000;
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    width: 260px;
+    font-family: Arial, sans-serif;
   }
 
-  .action-btn {
-    flex: 1;
-    background: #4a00e0;
+  .player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #e0e0e0;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .play-pause-btn {
+    background: #8e2de2;
     color: white;
     border: none;
-    padding: 10px;
-    border-radius: 8px;
+    border-radius: 6px;
+    padding: 8px 16px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 13px;
     transition: background 0.3s ease;
   }
 
-  .action-btn:hover {
-    background: #8e2de2;
+  .play-pause-btn:hover {
+    background: #4a00e0;
+  }
+
+  .track-selector {
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: 1px solid rgba(142, 45, 226, 0.5);
+    padding: 8px;
+    border-radius: 6px;
+    outline: none;
+    width: 100%;
+    font-size: 13px;
+    cursor: pointer;
   }
 </style>
 
-<div class="mixaura-glass-player">
-  <div class="player-title">🎵 MixAura Player</div>
-  <select id="track-list" class="song-dropdown" onchange="changeTrack()">
-    </select>
-  <div class="player-controls">
-    <button id="play-pause-btn" class="action-btn" onclick="togglePlay()">Play ▶</button>
-    <button class="action-btn" onclick="nextTrack()">Next ⏭</button>
+<div class="ocean">
+  <div class="wave"></div>
+  <div class="wave"></div>
+</div>
+
+<div class="mixaura-player">
+  <div class="player-header">
+    <span>🎵 MixAura Player</span>
+    <button id="play-pause-btn" class="play-pause-btn" onclick="togglePlay()">Play ▶</button>
   </div>
+  <select id="track-selector" class="track-selector" onchange="changeTrack()">
+    <option value="https://archive.org/download/ambient_bgm/ambient_bgm.mp3">1. Divine MixAura Waves (Default)</option>
+    <option value="https://archive.org/download/OmMantra_201702/Om%20Mantra.mp3">2. Peaceful Om Mantra</option>
+    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">3. Chill Lo-Fi Beats</option>
+    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3">4. Smooth R&B Groove</option>
+    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3">5. Boom Bap Rap Beat</option>
+    <option value="https://archive.org/download/Bansuri_Flute_Music/Bansuri.mp3">6. Nepali Flute (Bansuri)</option>
+    <option value="https://archive.org/download/Classical_Indian_Music/Sitar.mp3">7. Indian Classical Sitar</option>
+    <option value="https://archive.org/download/acoustic-guitar-background-music/Acoustic%20Guitar.mp3">8. Acoustic / Folk Vibe</option>
+    <option value="https://archive.org/download/Cinematic_Background_Music_2019/Cinematic.mp3">9. Cinematic Epic</option>
+    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3">10. Upbeat Pop / EDM</option>
+  </select>
+  
+  <audio id="bg-music" loop>
+    <source id="audio-source" src="https://archive.org/download/ambient_bgm/ambient_bgm.mp3" type="audio/mpeg">
+  </audio>
 </div>
 
 <script>
-  // १० वटा राम्रा इन्स्ट्रुमेन्टल र प्रोपर म्युजिक ट्र्याकहरू
-  const tracks = [
-    { name: "1. MixAura Default Music", url: "https://archive.org/download/ambient_bgm/ambient_bgm.mp3" },
-    { name: "2. Peaceful Om Mantra", url: "https://archive.org/download/OmMantra_201702/Om%20Mantra.mp3" },
-    { name: "3. Nepali Flute (Bansuri)", url: "https://archive.org/download/Bansuri_Flute_Music/Bansuri.mp3" },
-    { name: "4. Chill Lo-Fi Study Beats", url: "https://archive.org/download/lofi-study/lofi-study.mp3" },
-    { name: "5. Smooth R&B Instrumental", url: "https://archive.org/download/RnB_Instrumentals/RnB_Groove.mp3" },
-    { name: "6. Boom Bap Rap Beat", url: "https://archive.org/download/HipHop_Instrumental_Beats/HipHop.mp3" },
-    { name: "7. Cinematic Epic Strings", url: "https://archive.org/download/Cinematic_Background_Music_2019/Cinematic.mp3" },
-    { name: "8. Acoustic Guitar Vibe", url: "https://archive.org/download/acoustic-guitar-background-music/Acoustic%20Guitar.mp3" },
-    { name: "9. Upbeat Pop Groove", url: "https://archive.org/download/EDM_Background_Music/EDM.mp3" },
-    { name: "10. Indian Classical Sitar", url: "https://archive.org/download/Classical_Indian_Music/Sitar.mp3" }
-  ];
+  const audio = document.getElementById('bg-music');
+  const btn = document.getElementById('play-pause-btn');
+  const source = document.getElementById('audio-source');
+  const selector = document.getElementById('track-selector');
 
-  let currentIndex = 0;
-  const audio = new Audio();
-  audio.loop = true;
-
-  const dropdown = document.getElementById("track-list");
-  const playBtn = document.getElementById("play-pause-btn");
-
-  // ड्रपडाउन मेनुमा गानाहरू भर्ने
-  tracks.forEach((track, index) => {
-    let option = document.createElement("option");
-    option.value = index;
-    option.text = track.name;
-    dropdown.appendChild(option);
-  });
-
-  // गाना लोड गर्ने र अटो-प्ले गर्ने कोसिस गर्ने
-  function loadTrack(index) {
-    audio.src = tracks[index].url;
-    dropdown.value = index;
-    let playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
-        playBtn.innerText = "Pause ⏸";
-      }).catch(error => {
-        // ब्राउजरले रोकेमा बटनमा 'Play' नै देखाउने
-        playBtn.innerText = "Play ▶";
-      });
-    }
-  }
-
-  // Play र Pause को बटन
   function togglePlay() {
     if (audio.paused) {
-      audio.play();
-      playBtn.innerText = "Pause ⏸";
+      audio.play().then(() => {
+        btn.innerText = "Pause ⏸";
+      }).catch((error) => {
+        console.log("Audio play failed:", error);
+      });
     } else {
       audio.pause();
-      playBtn.innerText = "Play ▶";
+      btn.innerText = "Play ▶";
     }
   }
 
-  // नेक्स्ट (Next) गाना बजाउने
-  function nextTrack() {
-    currentIndex = (currentIndex + 1) % tracks.length;
-    loadTrack(currentIndex);
-  }
-
-  // ड्रपडाउनबाट गाना छान्ने
   function changeTrack() {
-    currentIndex = parseInt(dropdown.value);
-    loadTrack(currentIndex);
+    const isPlaying = !audio.paused;
+    source.src = selector.value;
+    audio.load();
+    if (isPlaying) {
+      audio.play().catch(e => console.log(e));
+    }
   }
-
-  // वेबसाइट खुल्ने बित्तिकै पहिलो डिफल्ट गाना लोड गरेर राख्ने
-  window.addEventListener('load', () => {
-    audio.src = tracks[0].url;
-  });
 </script>
  </body>
 </html>
