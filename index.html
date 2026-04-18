@@ -167,7 +167,7 @@
 
     </section>
   <style>
-  /* Cinematic & Smooth Waves */
+  /* १. तिम्रो पुरानो डिफल्ट Cinematic Waves */
   .ocean {
     height: 120px;
     width: 100%;
@@ -206,60 +206,50 @@
     50% { transform: translate3d(0, 5px, 0); }
   }
 
-  /* Professional & Clean Music Player (Bottom Right) */
+  /* २. एकदमै ट्रान्सपरेन्ट (Transparent) म्युजिक प्लेयर */
   .mixaura-player {
     position: fixed;
     bottom: 25px;
     right: 25px;
-    background: rgba(15, 15, 20, 0.7);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 15px;
+    /* एकदमै पारदर्शी ग्लास इफेक्ट */
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 12px 20px;
     border-radius: 12px;
     z-index: 1000;
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    width: 260px;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     font-family: Arial, sans-serif;
   }
 
   .player-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #e0e0e0;
+    color: #fff;
     font-size: 14px;
     font-weight: bold;
     letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
 
+  /* ट्रान्सपरेन्ट Play/Pause बटन */
   .play-pause-btn {
-    background: #8e2de2;
+    background: rgba(142, 45, 226, 0.2); /* हल्का पर्पल ट्रान्सपरेन्ट */
     color: white;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 6px;
     padding: 8px 16px;
     cursor: pointer;
     font-weight: bold;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
   }
 
   .play-pause-btn:hover {
-    background: #4a00e0;
-  }
-
-  .track-selector {
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: 1px solid rgba(142, 45, 226, 0.5);
-    padding: 8px;
-    border-radius: 6px;
-    outline: none;
-    width: 100%;
-    font-size: 13px;
-    cursor: pointer;
+    background: rgba(142, 45, 226, 0.5);
+    border-color: rgba(255, 255, 255, 0.6);
   }
 </style>
 
@@ -269,33 +259,17 @@
 </div>
 
 <div class="mixaura-player">
-  <div class="player-header">
-    <span>🎵 MixAura Player</span>
-    <button id="play-pause-btn" class="play-pause-btn" onclick="togglePlay()">Play ▶</button>
-  </div>
-  <select id="track-selector" class="track-selector" onchange="changeTrack()">
-    <option value="https://archive.org/download/ambient_bgm/ambient_bgm.mp3">1. Divine MixAura Waves (Default)</option>
-    <option value="https://archive.org/download/OmMantra_201702/Om%20Mantra.mp3">2. Peaceful Om Mantra</option>
-    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">3. Chill Lo-Fi Beats</option>
-    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3">4. Smooth R&B Groove</option>
-    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3">5. Boom Bap Rap Beat</option>
-    <option value="https://archive.org/download/Bansuri_Flute_Music/Bansuri.mp3">6. Nepali Flute (Bansuri)</option>
-    <option value="https://archive.org/download/Classical_Indian_Music/Sitar.mp3">7. Indian Classical Sitar</option>
-    <option value="https://archive.org/download/acoustic-guitar-background-music/Acoustic%20Guitar.mp3">8. Acoustic / Folk Vibe</option>
-    <option value="https://archive.org/download/Cinematic_Background_Music_2019/Cinematic.mp3">9. Cinematic Epic</option>
-    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3">10. Upbeat Pop / EDM</option>
-  </select>
+  <div class="player-header">🎵 MixAura Divine Waves</div>
+  <button id="play-pause-btn" class="play-pause-btn" onclick="togglePlay()">Play ▶</button>
   
   <audio id="bg-music" loop>
-    <source id="audio-source" src="https://archive.org/download/ambient_bgm/ambient_bgm.mp3" type="audio/mpeg">
+    <source src="https://archive.org/download/ambient_bgm/ambient_bgm.mp3" type="audio/mpeg">
   </audio>
 </div>
 
 <script>
   const audio = document.getElementById('bg-music');
   const btn = document.getElementById('play-pause-btn');
-  const source = document.getElementById('audio-source');
-  const selector = document.getElementById('track-selector');
 
   function togglePlay() {
     if (audio.paused) {
@@ -307,15 +281,6 @@
     } else {
       audio.pause();
       btn.innerText = "Play ▶";
-    }
-  }
-
-  function changeTrack() {
-    const isPlaying = !audio.paused;
-    source.src = selector.value;
-    audio.load();
-    if (isPlaying) {
-      audio.play().catch(e => console.log(e));
     }
   }
 </script>
