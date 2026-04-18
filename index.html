@@ -167,9 +167,9 @@
 
     </section>
     <style>
-  /* Cinematic & Smooth Waves */
+  /* १. सिनेमेटिक र थिम म्याचिङ डाइनामिक वेभ्स */
   .ocean {
-    height: 120px;
+    height: 150px;
     width: 100%;
     position: fixed;
     bottom: 0;
@@ -179,110 +179,115 @@
     overflow: hidden;
   }
 
-  .wave {
-    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg') repeat-x;
+  /* वेभ्सलाई MixAura को पर्पल थिमसँग म्याच गरिएको छ */
+  .wave-svg {
     position: absolute;
-    top: 0;
-    width: 6400px;
+    bottom: 0;
+    width: 200%;
     height: 100%;
-    animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
-    transform: translate3d(0, 0, 0);
-    opacity: 0.6;
+    animation: waveFlow 8s linear infinite;
+    opacity: 0.5;
   }
-
-  .wave:nth-of-type(2) {
-    top: 15px;
-    animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite, swell 7s ease -1.25s infinite;
+  
+  .wave-svg.wave-bg {
+    animation: waveFlow 12s linear infinite reverse;
     opacity: 0.3;
+    bottom: 10px;
   }
 
-  @keyframes wave {
-    0% { margin-left: 0; }
-    100% { margin-left: -1600px; }
+  @keyframes waveFlow {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
-  @keyframes swell {
-    0%, 100% { transform: translate3d(0, -15px, 0); }
-    50% { transform: translate3d(0, 5px, 0); }
-  }
-
-  /* Professional & Clean Music Player (Bottom Right) */
+  /* २. प्रोफेसनल 'Enter Studio' जस्तै देखिने म्युजिक प्लेयर */
   .mixaura-player {
     position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background: rgba(15, 15, 20, 0.7);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    bottom: 30px;
+    right: 30px;
+    /* Glassmorphism Effect */
+    background: rgba(30, 20, 50, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(142, 45, 226, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     padding: 15px;
-    border-radius: 12px;
+    border-radius: 16px;
     z-index: 1000;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    width: 260px;
-    font-family: Arial, sans-serif;
+    width: 280px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
   .player-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #e0e0e0;
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 1px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
   }
 
   .play-pause-btn {
-    background: #8e2de2;
+    background: linear-gradient(135deg, #8e2de2, #4a00e0);
     color: white;
     border: none;
-    border-radius: 6px;
-    padding: 8px 16px;
+    border-radius: 8px;
+    padding: 8px 18px;
     cursor: pointer;
     font-weight: bold;
-    transition: background 0.3s ease;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
 
   .play-pause-btn:hover {
-    background: #4a00e0;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(142, 45, 226, 0.6);
   }
 
   .track-selector {
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: 1px solid rgba(142, 45, 226, 0.5);
-    padding: 8px;
-    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.4);
+    color: #e0e0e0;
+    border: 1px solid rgba(142, 45, 226, 0.3);
+    padding: 10px;
+    border-radius: 8px;
     outline: none;
     width: 100%;
     font-size: 13px;
     cursor: pointer;
   }
+  
+  .track-selector option {
+    background: #1e1432;
+    color: #fff;
+  }
 </style>
 
 <div class="ocean">
-  <div class="wave"></div>
-  <div class="wave"></div>
+  <svg class="wave-svg wave-bg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+    <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="#4a00e0" opacity="0.5"></path>
+  </svg>
+  <svg class="wave-svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+    <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="#8e2de2" opacity="0.7"></path>
+  </svg>
 </div>
 
 <div class="mixaura-player">
   <div class="player-header">
-    <span>🎵 MixAura Player</span>
+    <span>🎵 MixAura Vibes</span>
     <button id="play-pause-btn" class="play-pause-btn" onclick="togglePlay()">Play ▶</button>
   </div>
   <select id="track-selector" class="track-selector" onchange="changeTrack()">
-    <option value="https://archive.org/download/ambient_bgm/ambient_bgm.mp3">1. Divine MixAura Waves (Default)</option>
-    <option value="https://archive.org/download/OmMantra_201702/Om%20Mantra.mp3">2. Peaceful Om Mantra</option>
-    <option value="https://archive.org/download/lofi-study/lofi-study.mp3">3. Cinematic Lo-Fi Flow</option>
-    <option value="https://archive.org/download/acoustic-guitar-background-music/Acoustic%20Guitar.mp3">4. Acoustic / Folk Vibe</option>
-    <option value="https://archive.org/download/EDM_Background_Music/EDM.mp3">5. Upbeat Electronic</option>
+    <option value="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3">1. Divine MixAura Waves (Default)</option>
+    <option value="https://cdn.pixabay.com/download/audio/2021/11/24/audio_985552ebc5.mp3">2. Peaceful Om Meditation</option>
+    <option value="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b8175b9f.mp3">3. Chill Lofi Beats</option>
+    <option value="https://cdn.pixabay.com/download/audio/2022/10/25/audio_2492f15328.mp3">4. Upbeat Pop / Hip-Hop</option>
+    <option value="https://cdn.pixabay.com/download/audio/2022/04/27/audio_67b45bbbf4.mp3">5. Cinematic Flow</option>
   </select>
   
   <audio id="bg-music" loop>
-    <source id="audio-source" src="https://archive.org/download/ambient_bgm/ambient_bgm.mp3" type="audio/mpeg">
+    <source id="audio-source" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
   </audio>
 </div>
 
@@ -294,10 +299,12 @@
 
   function togglePlay() {
     if (audio.paused) {
+      // अडियो प्ले गर्न ब्राउजरलाई फोर्स गर्ने
       audio.play().then(() => {
         btn.innerText = "Pause ⏸";
       }).catch((error) => {
-        console.log("Audio play failed:", error);
+        alert("कृपया गाना प्ले गर्न स्क्रिनमा कतै क्लिक गर्नुहोस्!");
+        console.log("Play error:", error);
       });
     } else {
       audio.pause();
@@ -308,11 +315,11 @@
   function changeTrack() {
     const isPlaying = !audio.paused;
     source.src = selector.value;
-    audio.load();
+    audio.load(); // नयाँ गाना लोड गर्ने
     if (isPlaying) {
-      audio.play().catch(e => console.log(e));
+      audio.play();
     }
   }
 </script>
-   </body>
+  </body>
 </html>
