@@ -1,281 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MixAura | The Divine Studio Realm</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MixAura Studio</title>
+  <style>
+    /* ग्लोबल स्टाइल */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0f0c29; 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      overflow-x: hidden;
+    }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
-        
-        body {
-            background-color: #03070A; /* Deep cinematic black/teal */
-            color: #ffffff;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+    /* स्मुथ ब्याकग्राउन्ड वेभ्स */
+    .ocean {
+      height: 120px;
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      background: transparent;
+      z-index: -1;
+      overflow: hidden;
+    }
 
-        /* Advanced Floating Divine Waves */
-        .divine-waves {
-            position: fixed;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: 
-                radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 80% 20%, rgba(20, 255, 150, 0.05) 0%, transparent 30%);
-            animation: wavePulse 12s infinite alternate ease-in-out;
-            z-index: -1;
-            filter: blur(40px);
-        }
+    .wave {
+      background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg') repeat-x;
+      position: absolute;
+      top: 0;
+      width: 6400px;
+      height: 100%;
+      animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+      transform: translate3d(0, 0, 0);
+      opacity: 0.6;
+    }
 
-        @keyframes wavePulse {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
-            50% { transform: translate(-2%, 3%) scale(1.05); opacity: 1; }
-            100% { transform: translate(3%, -2%) scale(1.1); opacity: 0.6; }
-        }
+    .wave:nth-of-type(2) {
+      top: 15px;
+      animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite, swell 7s ease -1.25s infinite;
+      opacity: 0.3;
+    }
 
-        /* Navigation */
-        header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 25px 8%; background: rgba(3, 7, 10, 0.6);
-            backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05);
-            position: sticky; top: 0; z-index: 100;
-        }
+    @keyframes wave {
+      0% { margin-left: 0; }
+      100% { margin-left: -1600px; }
+    }
 
-        .logo { font-size: 2rem; font-weight: 800; letter-spacing: 3px; display: flex; align-items: center; gap: 8px;}
-        .logo span { color: #00e5ff; font-weight: 300; letter-spacing: 1px;}
-        
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { color: #a0aab2; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s; text-transform: uppercase;}
-        .nav-links a:hover { color: #00e5ff; text-shadow: 0 0 10px rgba(0,229,255,0.5); }
+    @keyframes swell {
+      0%, 100% { transform: translate3d(0, -15px, 0); }
+      50% { transform: translate3d(0, 5px, 0); }
+    }
 
-        /* Hero Section */
-        .hero {
-            min-height: 80vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center; padding: 0 20px;
-        }
+    /* दाहिने कुनाको म्युजिक प्लेयर */
+    .music-player-box {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: rgba(15, 12, 41, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(142, 45, 226, 0.5);
+      padding: 12px 18px;
+      border-radius: 12px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
 
-        .hero h1 { font-size: 4.5rem; letter-spacing: 6px; margin-bottom: 20px; font-weight: 800; text-transform: uppercase; line-height: 1.1;}
-        .hero h1 span { 
-            background: linear-gradient(90deg, #00e5ff, #14ff96);
-            -webkit-background-clip: text; color: transparent; 
-        }
-        .hero p { font-size: 1.3rem; max-width: 800px; color: #8a9ba8; font-weight: 300; margin-bottom: 40px; }
-        
-        .cta-btn {
-            padding: 15px 40px; background: transparent; border: 1px solid #00e5ff;
-            color: #00e5ff; font-size: 1.1rem; letter-spacing: 2px; border-radius: 30px;
-            cursor: pointer; transition: 0.4s; text-transform: uppercase;
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
-        }
-        .cta-btn:hover {
-            background: #00e5ff; color: #03070A;
-            box-shadow: 0 0 30px rgba(0, 229, 255, 0.4); transform: translateY(-3px);
-        }
+    .player-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
 
-        /* Glassmorphism Grid Section */
-        .section-title { text-align: center; font-size: 2.5rem; margin: 60px 0 30px; font-weight: 600; letter-spacing: 2px;}
-        
-        .grid-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px; padding: 0 8% 80px;
-        }
+    .play-pause-btn {
+      background: linear-gradient(45deg, #8e2de2, #4a00e0);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 6px 15px;
+      cursor: pointer;
+      font-weight: bold;
+      outline: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
 
-        .card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px; padding: 40px 30px; cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(20px);
-            position: relative; overflow: hidden;
-        }
+    .play-pause-btn:hover {
+      opacity: 0.8;
+    }
 
-        .card::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.1), transparent);
-            transition: 0.5s;
-        }
+    /* होमपेजको बिचको भाग */
+    .home-center {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 50;
+    }
 
-        .card:hover::before { left: 100%; }
-        .card:hover {
-            transform: translateY(-12px);
-            border-color: rgba(0, 229, 255, 0.3);
-            box-shadow: 0 15px 35px rgba(0, 229, 255, 0.08);
-            background: rgba(255, 255, 255, 0.04);
-        }
+    .mixaura-logo-text {
+      font-size: 45px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
 
-        .card-icon { font-size: 2.5rem; margin-bottom: 20px; }
-        .card h3 { color: #ffffff; margin-bottom: 15px; font-size: 1.6rem; font-weight: 600; letter-spacing: 1px;}
-        .card p { color: #8a9ba8; font-size: 1rem; margin-bottom: 20px;}
-        
-        .card-tag { 
-            display: inline-block; padding: 5px 12px; font-size: 0.75rem; 
-            background: rgba(0, 229, 255, 0.1); color: #00e5ff; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
-        }
+    .enter-btn {
+      background: linear-gradient(45deg, #8e2de2, #4a00e0);
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 15px 35px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(142, 45, 226, 0.4);
+      transition: all 0.3s ease;
+    }
 
-    </style>
+    .enter-btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 12px 25px rgba(142, 45, 226, 0.6);
+    }
+
+    /* Full-Screen Studio Overlay (स्टुडियो भित्रको भाग) */
+    .studio-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 8, 20, 0.95);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease-in-out;
+      overflow-y: auto;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    .studio-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      font-size: 35px;
+      color: #fff;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-btn:hover {
+      color: #8e2de2;
+      transform: rotate(90deg);
+    }
+
+    .studio-header {
+      text-align: center;
+      font-size: 35px;
+      font-weight: bold;
+      margin-bottom: 40px;
+      color: #fff;
+    }
+
+    /* ग्रिड र कार्ड डिजाइन */
+    .studio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-bottom: 50px;
+    }
+
+    .studio-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(142, 45, 226, 0.3);
+      border-radius: 16px;
+      padding: 20px;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .studio-card:hover {
+      transform: translateY(-8px);
+      border-color: #8e2de2;
+      box-shadow: 0 10px 30px rgba(142, 45, 226, 0.2);
+    }
+
+    .animation-box {
+      height: 180px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      border: 1px dashed rgba(142, 45, 226, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+      color: #aaa;
+      font-size: 13px;
+      overflow: hidden;
+    }
+
+    .animation-box i {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .card-action-btn {
+      background: transparent;
+      color: #fff;
+      border: 1px solid #8e2de2;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: auto;
+      transition: 0.3s;
+    }
+
+    .studio-card:hover .card-action-btn {
+      background: #8e2de2;
+    }
+
+    /* Membership टियर बक्स */
+    .tier-boxes {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .tier-box {
+      background: rgba(142, 45, 226, 0.2);
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      border: 1px solid rgba(142, 45, 226, 0.5);
+    }
+  </style>
 </head>
 <body>
-    <div class="divine-waves"></div>
 
-    <header>
-        <div class="logo">M A <span>| MIXAURA</span></div>
-        <div class="nav-links">
-            <a href="#">Sound Library</a>
-            <a href="#">Beats</a>
-            <a href="#">Courses</a>
-            <a href="#">Membership</a>
-        </div>
-    </header>
-
-    <section class="hero">
-        <h1>The Divine <span>Sound Realm</span></h1>
-        <p>Mixaura is all about connecting you with the divine and emotional sounds of music. From high-energy drops to soulful, looping melodies, let's create music that touches the heart.</p>
-        <button class="cta-btn">Enter Studio</button>
-    </section>
-
-    <h2 class="section-title">Explore The Vault</h2>
-    <section class="grid-container">
-        
-        <div class="card">
-            <div class="card-icon">🎵</div>
-            <h3>Premium Beats</h3>
-            <p>Exclusive instrumentals spanning Rap, R&B, Pop, and Lo-Fi. License top-tier sounds to elevate your next project.</p>
-            <span class="card-tag">Purchase Licenses</span>
-        </div>
-
-        <div class="card">
-            <div class="card-icon">🎛️</div>
-            <h3>Project Files</h3>
-            <p>Dive deep into professional Ableton Live and FL Studio project templates. See exactly how the magic is routed and mixed.</p>
-            <span class="card-tag">Download Access</span>
-        </div>
-
-        <div class="card">
-            <div class="card-icon">📚</div>
-            <h3>Mixing & Mastering</h3>
-            <p>Industry-level courses and live mentorship. Learn to shape your frequencies, control dynamics, and craft the perfect sonic aura.</p>
-            <span class="card-tag">Start Learning</span>
-        </div>
-
-        <div class="card">
-            <div class="card-icon">✨</div>
-            <h3>Tips & Tricks Blog</h3>
-            <p>From essential vocal chain setups to creative arrangement hacks, discover secrets to refine your workflow.</p>
-            <span class="card-tag">Read Articles</span>
-        </div>
-
-    </section>
-    <style>
-  /* एकदमै स्मुथ र रियालिस्टिक वेभ्स (Ocean Style) */
-  .ocean {
-    height: 120px;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background: transparent;
-    z-index: -1;
-    overflow: hidden;
-  }
-
-  .wave {
-    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg') repeat-x;
-    position: absolute;
-    top: 0;
-    width: 6400px;
-    height: 100%;
-    animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
-    transform: translate3d(0, 0, 0);
-    opacity: 0.6;
-  }
-
-  .wave:nth-of-type(2) {
-    top: 15px;
-    animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite, swell 7s ease -1.25s infinite;
-    opacity: 0.3;
-  }
-
-  @keyframes wave {
-    0% { margin-left: 0; }
-    100% { margin-left: -1600px; }
-  }
-
-  @keyframes swell {
-    0%, 100% { transform: translate3d(0, -15px, 0); }
-    50% { transform: translate3d(0, 5px, 0); }
-  }
-
-  /* क्लिन म्युजिक प्लेयर (दाहिने पट्टि) */
-  .music-player-box {
-    position: fixed;
-    bottom: 25px;
-    right: 25px; /* दाहिने कुनामा */
-    background: rgba(15, 12, 41, 0.85);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(142, 45, 226, 0.5);
-    padding: 12px 18px;
-    border-radius: 12px;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-  }
-
-  .player-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-  }
-
-  .play-pause-btn {
-    background: linear-gradient(45deg, #8e2de2, #4a00e0);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 6px 15px;
-    cursor: pointer;
-    font-weight: bold;
-    outline: none;
-    font-size: 14px;
-    transition: 0.3s;
-  }
-
-  .play-pause-btn:hover {
-    opacity: 0.8;
-  }
-</style>
-
-<div class="ocean">
-  <div class="wave"></div>
-  <div class="wave"></div>
-</div>
-
-<div class="music-player-box">
-  <div class="player-controls">
-    <span style="color: #ccc; font-size: 13px; font-weight: bold;">🎵 MixAura Web Sound</span>
-    <button id="play-pause-btn" class="play-pause-btn" onclick="togglePlay()">Play ▶</button>
+  <div class="ocean">
+    <div class="wave"></div>
+    <div class="wave"></div>
   </div>
-  <audio id="bg-music" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
-  </audio>
-</div>
 
-<script>
-  const audio = document.getElementById('bg-music');
-  const btn = document.getElementById('play-pause-btn');
+  <div class="home-center">
+    <div class="mixaura-logo-text">MixAura</div>
+    <button class="enter-btn" onclick="openStudio()">Enter Studio</button>
+  </div>
 
-  function togglePlay() {
-    if (audio.paused) {
-      audio.play();
-      btn.innerText = "Pause ⏸";
-    } else {
-      audio.pause();
-      btn.innerText = "Play ▶";
+  <div class="music-player-box">
+    <div class="player-controls">
+      <span style="color: #ccc; font-size: 13px; font-weight: bold;">🎵 MixAura Web Sound</span>
+      <button id="play-pause-btn" class="play-pause-btn" onclick="togglePlay()">Play ▶</button>
+    </div>
+    <audio id="bg-music" loop>
+      <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <div id="studio-overlay" class="studio-overlay">
+    <button class="close-btn" onclick="closeStudio()">×</button>
+    <div class="studio-header">MixAura Studio</div>
+
+    <div class="studio-grid">
+      
+      <div class="studio-card">
+        <div class="animation-box">
+          <i>🎛️</i>
+          <span>(2D Character mixing intensely)</span>
+        </div>
+        <div class="card-title">Mixing & Mastering</div>
+        <button class="card-action-btn">Enter Session</button>
+      </div>
+
+      <div class="studio-card">
+        <div class="animation-box">
+          <i>🎧</i>
+          <span>(2D Character vibing hard)</span>
+        </div>
+        <div class="card-title">Sound Library</div>
+        <button class="card-action-btn">Browse Sounds</button>
+      </div>
+
+      <div class="studio-card">
+        <div class="animation-box">
+          <i>👨‍🏫</i>
+          <span>(2D Character teaching)</span>
+        </div>
+        <div class="card-title">Courses & Mentorship</div>
+        <button class="card-action-btn">View Courses</button>
+      </div>
+
+      <div class="studio-card">
+        <div class="animation-box">
+          <i>🎹</i>
+          <span>(2D Character making beats)</span>
+        </div>
+        <div class="card-title">Premium Beats</div>
+        <button class="card-action-btn">Listen Beats</button>
+      </div>
+
+      <div class="studio-card">
+        <div class="animation-box">
+          <i>🙏</i>
+          <span>(2D Character saying "Namaste")</span>
+          <div class="tier-boxes">
+            <div class="tier-box">Basic</div>
+            <div class="tier-box">Standard</div>
+            <div class="tier-box">Premium</div>
+          </div>
+        </div>
+        <div class="card-title">Membership Plans</div>
+        <button class="card-action-btn">View Plans</button>
+      </div>
+
+      <div class="studio-card" style="opacity: 0.7;">
+        <div class="animation-box">
+          <i>📁</i>
+          <span>(Empty Space for Projects)</span>
+        </div>
+        <div class="card-title">Project Files</div>
+        <button class="card-action-btn">Coming Soon</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // म्युजिक प्ले र पज गर्ने लजिक
+    const audio = document.getElementById('bg-music');
+    const btn = document.getElementById('play-pause-btn');
+
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play();
+        btn.innerText = "Pause ⏸";
+      } else {
+        audio.pause();
+        btn.innerText = "Play ▶";
+      }
     }
-  }
-</script>
-  </body>
+
+    // स्टुडियो ओभरले खोल्ने र बन्द गर्ने लजिक
+    const overlay = document.getElementById('studio-overlay');
+
+    function openStudio() {
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden'; // ओभरले खुल्दा पछाडिको पेज स्क्रोल हुन नदिन
+    }
+
+    function closeStudio() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = 'auto'; // ओभरले बन्द हुँदा स्क्रोल फेरि अन गर्न
+    }
+  </script>
+</body>
 </html>
