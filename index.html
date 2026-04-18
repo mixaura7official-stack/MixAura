@@ -167,45 +167,50 @@
 
     </section>
     <style>
-  /* डाइनामिक वेभ्स (Dynamic Waves) - स्मूथ र सफा */
-  .wave-container {
+  /* एकदमै स्मुथ र रियालिस्टिक वेभ्स (Ocean Style) */
+  .ocean {
+    height: 120px;
+    width: 100%;
     position: fixed;
     bottom: 0;
     left: 0;
-    width: 100%;
-    height: 150px;
-    overflow: hidden;
+    background: transparent;
     z-index: -1;
+    overflow: hidden;
   }
 
   .wave {
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg') repeat-x;
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 200%;
+    top: 0;
+    width: 6400px;
     height: 100%;
-    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 800 88.7" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C150,80 250,0 400,40 C550,80 650,0 800,40 L800,88.7 L0,88.7 Z" fill="%238e2de2" opacity="0.4"/></svg>');
-    background-size: 50% 100%;
-    animation: moveWaves 6s linear infinite;
+    animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.6;
   }
 
-  .wave:nth-child(2) {
-    bottom: 10px;
-    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 800 88.7" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C150,80 250,0 400,40 C550,80 650,0 800,40 L800,88.7 L0,88.7 Z" fill="%234a00e0" opacity="0.3"/></svg>');
-    background-size: 50% 100%;
-    animation: moveWaves 8s linear infinite reverse;
+  .wave:nth-of-type(2) {
+    top: 15px;
+    animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite, swell 7s ease -1.25s infinite;
+    opacity: 0.3;
   }
 
-  @keyframes moveWaves {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+  @keyframes wave {
+    0% { margin-left: 0; }
+    100% { margin-left: -1600px; }
   }
 
-  /* क्लिन म्युजिक प्लेयर (अब दाहिने पट्टि) */
+  @keyframes swell {
+    0%, 100% { transform: translate3d(0, -15px, 0); }
+    50% { transform: translate3d(0, 5px, 0); }
+  }
+
+  /* क्लिन म्युजिक प्लेयर (दाहिने पट्टि) */
   .music-player-box {
     position: fixed;
     bottom: 25px;
-    right: 25px; /* लेफ्टबाट राइटमा सारियो */
+    right: 25px; /* दाहिने कुनामा */
     background: rgba(15, 12, 41, 0.85);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(142, 45, 226, 0.5);
@@ -243,19 +248,19 @@
   }
 </style>
 
+<div class="ocean">
+  <div class="wave"></div>
+  <div class="wave"></div>
+</div>
+
 <div class="music-player-box">
   <div class="player-controls">
-    <span style="color: #ccc; font-size: 13px; font-weight: bold;">🎵 Divine MixAura Waves</span>
+    <span style="color: #ccc; font-size: 13px; font-weight: bold;">🎵 MixAura Web Sound</span>
     <button id="play-pause-btn" class="play-pause-btn" onclick="togglePlay()">Play ▶</button>
   </div>
   <audio id="bg-music" loop>
     <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
   </audio>
-</div>
-
-<div class="wave-container">
-  <div class="wave"></div>
-  <div class="wave"></div>
 </div>
 
 <script>
@@ -272,5 +277,5 @@
     }
   }
 </script>
-   </body>
+  </body>
 </html>
