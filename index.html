@@ -167,119 +167,117 @@
 
     </section>
     <style>
-  /* १. Smooth & Clean Divine Waves (No Boxy Look) */
+  /* १. तिम्रो ओरिजिनल डिफल्ट Waves (कुनै चेन्ज छैन) */
   .ocean {
+    height: 120px;
+    width: 100%;
     position: fixed;
     bottom: 0;
     left: 0;
-    width: 100%;
-    height: 150px;
+    background: transparent;
     z-index: -1;
     overflow: hidden;
-    background: transparent;
   }
 
-  .wave-svg {
+  .wave {
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg') repeat-x;
     position: absolute;
-    bottom: 0;
-    width: 200%;
+    top: 0;
+    width: 6400px;
     height: 100%;
-    animation: waveFlow 10s linear infinite;
+    animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+    transform: translate3d(0, 0, 0);
     opacity: 0.6;
   }
-  
-  .wave-svg.wave-bg {
-    animation: waveFlow 15s linear infinite reverse;
-    opacity: 0.4;
-    bottom: 10px;
+
+  .wave:nth-of-type(2) {
+    top: 15px;
+    animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite, swell 7s ease -1.25s infinite;
+    opacity: 0.3;
   }
 
-  @keyframes waveFlow {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+  @keyframes wave {
+    0% { margin-left: 0; }
+    100% { margin-left: -1600px; }
   }
 
-  /* २. Transparent Music Player */
-  .mixaura-player {
+  @keyframes swell {
+    0%, 100% { transform: translate3d(0, -15px, 0); }
+    50% { transform: translate3d(0, 5px, 0); }
+  }
+
+  /* २. एकदमै सिम्पल र ट्रान्सपरेन्ट प्लेयर */
+  .mixaura-simple-player {
     position: fixed;
     bottom: 25px;
     right: 25px;
-    background: rgba(20, 15, 30, 0.4); /* एकदमै पारदर्शी */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.05); /* ग्लास इफेक्ट */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 20px;
     border-radius: 12px;
     z-index: 1000;
     display: flex;
     align-items: center;
-    gap: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    gap: 15px;
+    font-family: Arial, sans-serif;
   }
 
-  .player-title {
+  .simple-player-title {
     color: #fff;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
     letter-spacing: 1px;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
 
-  /* Play/Pause Button */
-  .play-pause-btn {
-    background: rgba(142, 45, 226, 0.4);
+  .simple-play-btn {
+    background: rgba(142, 45, 226, 0.5);
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
-    padding: 8px 20px;
+    border-radius: 6px;
+    padding: 6px 16px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 14px;
-    transition: all 0.3s ease;
+    transition: 0.3s;
   }
 
-  .play-pause-btn:hover {
+  .simple-play-btn:hover {
     background: rgba(142, 45, 226, 0.8);
-    transform: scale(1.05);
   }
 </style>
 
 <div class="ocean">
-  <svg class="wave-svg wave-bg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-    <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="#4a00e0"></path>
-  </svg>
-  <svg class="wave-svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-    <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="#8e2de2"></path>
-  </svg>
+  <div class="wave"></div>
+  <div class="wave"></div>
 </div>
 
-<div class="mixaura-player">
-  <div class="player-title">🎵 MixAura Web Sound</div>
-  <button id="play-pause-btn" class="play-pause-btn" onclick="togglePlay()">Play ▶</button>
+<div class="mixaura-simple-player">
+  <div class="simple-player-title">🎵 MixAura Web Sound</div>
+  <button id="simple-play-btn" class="simple-play-btn" onclick="toggleSimplePlay()">Play ▶</button>
   
-  <audio id="bg-music" loop crossorigin="anonymous">
+  <audio id="simple-audio" loop crossorigin="anonymous">
     <source src="https://archive.org/download/ambient_bgm/ambient_bgm.mp3" type="audio/mpeg">
   </audio>
 </div>
 
 <script>
-  const audio = document.getElementById('bg-music');
-  const btn = document.getElementById('play-pause-btn');
+  const myAudio = document.getElementById('simple-audio');
+  const myBtn = document.getElementById('simple-play-btn');
 
-  function togglePlay() {
-    if (audio.paused) {
-      audio.play().then(() => {
-        btn.innerText = "Pause ⏸";
-      }).catch((error) => {
-        console.log("Audio play failed:", error);
-        alert("गाना प्ले गर्न कृपया फेरि क्लिक गर्नुहोस्!");
+  function toggleSimplePlay() {
+    if (myAudio.paused) {
+      myAudio.play().then(() => {
+        myBtn.innerText = "Pause ⏸";
+      }).catch((err) => {
+        console.log("Play failed:", err);
       });
     } else {
-      audio.pause();
-      btn.innerText = "Play ▶";
+      myAudio.pause();
+      myBtn.innerText = "Play ▶";
     }
   }
 </script>
-  </body>
+   </body>
 </html>
